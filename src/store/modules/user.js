@@ -4,7 +4,4 @@ export default {
     state:{
         userInfo:{}//用户信息对象
     },
-    // mutations,
-    // actions,
-    // getters
 }
