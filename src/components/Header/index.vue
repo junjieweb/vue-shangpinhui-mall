@@ -5,15 +5,20 @@
       <div class="container">
         <div class="loginList">
           <p>尚品汇欢迎您！</p>
-          <p>
+          <p v-if="$store.state.user.userInfo.name">
+            <a href="javascript:">{{ $store.state.user.userInfo.name }}</a>
+            <a href="javascript:" class="register" @click="logout">退出登录</a>
+          </p>
+          <p v-else>
             <span>请</span>
-            <a href="###">登录</a>
-            <a href="###" class="register">免费注册</a>
+            <router-link to="/login">登录</router-link>
+            <router-link class="register" to="/register">免费注册</router-link>
           </p>
         </div>
         <div class="typeList">
-          <a href="###">我的订单</a>
-          <a href="###">我的购物车</a>
+          <!--<a href="###">我的订单</a>-->
+          <router-link to="/center">我的订单</router-link>
+          <router-link to="/shopcart">我的购物车</router-link>
           <a href="###">我的尚品汇</a>
           <a href="###">尚品汇会员</a>
           <a href="###">企业采购</a>
@@ -56,27 +61,56 @@ export default {
 
       const location = {
         name: 'search',
+        query: this.$route.query //将当前就有的query参数携带上
       }
       //只有有数据时，才携带params参数
       if (this.keyword) {
         location.params = { //路由必须配置name
           keyword: this.keyword
         }
-        location.query = {
-          keyword2: this.keyword.toUpperCase()
-        }
+        // location.query = {
+        //   keyword2: this.keyword.toUpperCase()
+        // }
       }
       /*
         router.push(location, onComplete?, onAbort?)
         router.push(location).then(onComplete).catch(onAbort)
       */
-      this.$router.push(location)
+      // 跳转到search
+      // 从其它页到搜索页: push()
+      // 从搜索到搜索页: replace()
+      if (this.$route.name === 'search') { //当前是搜索
+        this.$router.replace(location)
+      } else {
+        this.$router.push(location)
+      }
+
       //解决重复跳转路由的错误
       //方法一：传入成功的回调函数参数
       // this.$router.push(location, () => {})
       //方法二：catch处理错误的promise
       // this.$router.push(location).catch(() => {})
+    },
+    async logout() {
+      try {
+        await this.$store.dispatch('userLogout')
+        alert('退出成功')
+        await this.$router.push('/')
+      } catch (e) {
+        alert(e.message)
+      }
     }
+  },
+  mounted() {
+    // 2). 在Header中绑定自定义事件监听, 在回调中清除数据
+    this.$bus.$on('removeKeyword', () => {
+      this.keyword = ''
+    })
+  },
+
+  // 4). 在Header组件死亡之前解绑事件监听: 在beforeDestroy中
+  beforeDestroy() {
+    this.$bus.off('removeKeyword')
   }
 }
 </script>

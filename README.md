@@ -1,4 +1,4 @@
-# shangpinhui-mall
+# shop-client
 
 ## Project setup
 ```
