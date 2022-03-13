@@ -41,13 +41,3 @@ new Vue({
     router,//注册路由器 ==> 所有组件都可以直接访问两个对象：$router $route
     store, //注册vuex ==> 所有组件都可以直接访问一个对象：$store
 }).$mount('#app')
-
-/*
-store对象的功能：
-    读取数据：
-        store.state.xxx
-        store.getters.xxx
-    更新数据
-        store.dispatch(action名称, data)
-        store.commit(mutation名称, data)
-*/

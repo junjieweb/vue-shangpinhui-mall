@@ -7,13 +7,13 @@ import modules from "@/store/modules";
 
 Vue.use(Vuex)
 
-
 //向外暴露store对象
 export default new Vuex.Store({
     // state,
     // mutations,
     // actions,
     // getters,
+<<<<<<< HEAD
     // modules: {
     //     home,
     //     user
@@ -34,3 +34,10 @@ vuex多模块编程的总状态结构:
     },
 }
 */
+=======
+    modules: {
+        home,
+        user
+    }
+})
+>>>>>>> 294c47c2632cda58b5a40c551c7d7a59d2cd33f9
