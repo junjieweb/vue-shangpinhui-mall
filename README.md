@@ -1,8 +1,6 @@
 # Shangpinhui-Mall
 
-## 相关资料
-
-<https://github.com/junjieweb/Shangpinhui-Mall/tree/data/01%E8%B5%84%E6%96%99>
+## [相关资料](https://github.com/junjieweb/Shangpinhui-Mall/tree/data/01%E8%B5%84%E6%96%99)
 
 ## Project setup
 ```
