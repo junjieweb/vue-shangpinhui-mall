@@ -68,9 +68,6 @@ export default {
         location.params = { //路由必须配置name
           keyword: this.keyword
         }
-        // location.query = {
-        //   keyword2: this.keyword.toUpperCase()
-        // }
       }
       /*
         router.push(location, onComplete?, onAbort?)

@@ -14,7 +14,6 @@ const mutations = {
     GET_CODE(state, code) {
         state.code = code
     },
-<<<<<<< HEAD
     RECEIVE_TOKEN(state, token) {
         state.token = token
     },
@@ -96,6 +95,4 @@ export default {
     mutations,
     actions,
     getters
-=======
->>>>>>> 294c47c2632cda58b5a40c551c7d7a59d2cd33f9
 }

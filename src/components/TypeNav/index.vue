@@ -6,15 +6,22 @@
         <transition name="slide">
           <div class="sort" v-show="isShowFirst">
             <div class="all-sort-list2" @click="toSearch">
-              <div class="item" v-for="(c1,index) in categoryList" :key="c1.categoryId"
-                   :class="{active:currentIndex===index}" @mouseenter="showSubList(index)">
+              <div
+                class="item"
+                v-for="(c1, index) in categoryList"
+                :key="c1.categoryId"
+                :class="{ active: currentIndex === index }"
+                @mouseenter="showSubList(index)"
+              >
                 <h3>
-                  <a href="javascript:"
-                     :data-categoryName="c1.categoryName"
-                     :data-category1Id="c1.categoryId"
-                  >{{ c1.categoryName }}</a>
+                  <a
+                    href="javascript:"
+                    :data-categoryName="c1.categoryName"
+                    :data-category1Id="c1.categoryId"
+                    >{{ c1.categoryName }}</a
+                  >
                   <!--<a href="javascript:"
-                     @click="$router.push(`/search?categoryName=${c1.categoryName}&category1Id=${c1.categoryId}`)">{{
+                    @click="$router.push(`/search?categoryName=${c1.categoryName}&category1Id=${c1.categoryId}`)">{{
                       c1.categoryName
                     }}</a>-->
                   <!--<router-link :to="`/search?categoryName=${c1.categoryName}&category1Id=${c1.categoryId}`">
@@ -23,22 +30,30 @@
                 </h3>
                 <div class="item-list clearfix">
                   <div class="subitem">
-                    <dl class="fore" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
+                    <dl
+                      class="fore"
+                      v-for="c2 in c1.categoryChild"
+                      :key="c2.categoryId"
+                    >
                       <dt>
-                        <a href="javascript:"
-                           :data-categoryName="c2.categoryName"
-                           :data-category2Id="c2.categoryId"
-                        >{{ c2.categoryName }}</a>
+                        <a
+                          href="javascript:"
+                          :data-categoryName="c2.categoryName"
+                          :data-category2Id="c2.categoryId"
+                          >{{ c2.categoryName }}</a
+                        >
                         <!--<router-link :to="`/search?categoryName=${c2.categoryName}&category2Id=${c2.categoryId}`">
                           {{ c2.categoryName }}
                         </router-link>-->
                       </dt>
                       <dd>
                         <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                          <a href="javascript:"
-                             :data-categoryName="c3.categoryName"
-                             :data-category3Id="c3.categoryId"
-                          >{{ c3.categoryName }}</a>
+                          <a
+                            href="javascript:"
+                            :data-categoryName="c3.categoryName"
+                            :data-category3Id="c3.categoryId"
+                            >{{ c3.categoryName }}</a
+                          >
                           <!--<router-link :to="`/search?categoryName=${c3.categoryName}&category3Id=${c3.categoryId}`">
                             {{ c3.categoryName }}
                           </router-link>-->
@@ -72,20 +87,20 @@
 2.store.state / mapState() 读取vuex中state数据，数据从state到组件的computed
 3.在模板中动态显示
 */
-import {mapState} from "vuex";
+import { mapState } from "vuex";
 // import _ from 'lodash' //打包整个库，太大了
-import throttle from "lodash/throttle";//只引入需要的模块，减小打包文件
+import throttle from "lodash/throttle"; //只引入需要的模块，减小打包文件
 
 export default {
   name: "TypeNav",
   data() {
     // console.log('data()')
-    const path = this.$route.path
+    const path = this.$route.path;
     return {
       // isShowFirst: false, //是否显示一级列表
-      isShowFirst: path === '/',
-      currentIndex: -2 //需要显示子列表的分类项下标
-    }
+      isShowFirst: path === "/",
+      currentIndex: -2, //需要显示子列表的分类项下标
+    };
   },
   beforeCreate() {
     // console.log('beforeCreate')
@@ -97,7 +112,8 @@ export default {
     //   this.isShowFirst = true
     // }
   },
-  mounted() { //在初始显示之后更新数据 ==> 导致界面多更新一次
+  mounted() {
+    //在初始显示之后更新数据 ==> 导致界面多更新一次
     //判断当前请求的是否是首页，如果是显示一级列表
     // const path = this.$route.path
     // if (path === '/') {
@@ -111,83 +127,89 @@ export default {
     // ...mapState(['categoryList']) //不行
     // ...mapState({categoryList: 'categoryList'})//不可以
     ...mapState({
-      categoryList: state => state.home.categoryList //函数接收的是总状态，返回值作为计算属性
-    })
+      categoryList: (state) => state.home.categoryList, //函数接收的是总状态，返回值作为计算属性
+    }),
   },
   methods: {
     //隐藏一级列表
     hideFirst() {
       //标识当前已经离开整个div
-      this.currentIndex = -2
+      this.currentIndex = -2;
       //如果当前不是首页，隐藏一级列表
-      if (this.$route.path !== '/') {
-        this.isShowFirst = false
+      if (this.$route.path !== "/") {
+        this.isShowFirst = false;
       }
     },
 
     //显示一级列表
     showFirst() {
       //标识当前已经进入包含分类的div了
-      this.currentIndex = -1
+      this.currentIndex = -1;
       //保证显示一级列表
-      this.isShowFirst = true
+      this.isShowFirst = true;
     },
 
     //显示指定下标的子分类列表
     // showSubList: _.throttle((index) => { //不可以，原因在于箭头函数没有自己的this，且不能通过bind来指定特定this
     // showSubList: _.throttle(function (index) { //这个事件监听回调函数调用的频率太高
-    showSubList: throttle(function (index) { //这个事件监听回调函数调用的频率太高
-      // console.log('throttle', index)
-      // 只有当还没有离开整个分类的div时才更新下标
-      if (this.currentIndex !== -2) {
-        this.currentIndex = index
-      }
-    }, 200, /*{
+    showSubList: throttle(
+      function (index) {
+        //这个事件监听回调函数调用的频率太高
+        // console.log('throttle', index)
+        // 只有当还没有离开整个分类的div时才更新下标
+        if (this.currentIndex !== -2) {
+          this.currentIndex = index;
+        }
+      },
+      200 /*{
       trailing: false //最后一次事件不延迟处理
-    }*/),
+    }*/
+    ),
     //跳转到搜索页面
     toSearch(event) {
-      const target = event.target
+      const target = event.target;
       // alert(target.tagName)
       // console.dir(target)
       //取出data自定义属性值
-      const {categoryname, category1id, category2id, category3id} = target.dataset
+      const { categoryname, category1id, category2id, category3id } =
+        target.dataset;
       // if (target.tagName.toUpperCase() === 'A') {
       if (categoryname) {
         //准备query参数
         const query = {
-          categoryName: categoryname
-        }
+          categoryName: categoryname,
+        };
         if (category1id) {
-          query.category1Id = category1id
+          query.category1Id = category1id;
         } else if (category2id) {
-          query.category2Id = category2id
+          query.category2Id = category2id;
         } else if (category3id) {
-          query.category3Id = category3id
+          query.category3Id = category3id;
         }
 
         //准备一个用于跳转的对象
         const location = {
-          name: 'search',
+          name: "search",
           query,
-          params: this.$route.params //需要携带上当前已有的params参数
-        }
+          params: this.$route.params, //需要携带上当前已有的params参数
+        };
 
         // 跳转到search
         // 从其它页到搜索页: push()
         // 从搜索到搜索页: replace()
-        if (this.$route.name === 'search') { //当前是搜索
-          this.$router.replace(location)
+        if (this.$route.name === "search") {
+          //当前是搜索
+          this.$router.replace(location);
         } else {
-          this.$router.push(location)
+          this.$router.push(location);
         }
 
         //隐藏一级分类列表
-        this.hideFirst()
+        this.hideFirst();
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -232,12 +254,14 @@ export default {
       z-index: 999;
 
       //指定过渡的样式
-      &.slide-enter-active, &.slide-leave-active {
-        transition: all .3s;
+      &.slide-enter-active,
+      &.slide-leave-active {
+        transition: all 0.3s;
       }
 
       //指定隐藏时的样式
-      &.slide-enter, &.slide-leave-to {
+      &.slide-enter,
+      &.slide-leave-to {
         opacity: 0;
         height: 0;
       }
@@ -312,7 +336,7 @@ export default {
           }
 
           &.active {
-            background: #CCCCCC;
+            background: #cccccc;
 
             .item-list {
               display: block;

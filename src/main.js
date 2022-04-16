@@ -18,9 +18,6 @@ Vue.use(VueLazyload, { // 内部自定义了一个指令lazy
     loading,  // 指定未加载得到图片之前的loading图片
 })
 
-
-// import 'swiper/css/swiper.min.css'; //所有组件都能用上这个样式
-
 Vue.config.productionTip = false
 
 //注册全局组件
