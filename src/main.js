@@ -24,9 +24,6 @@ Vue.config.productionTip = false
 Vue.component(TypeNav.name, TypeNav)
 Vue.component(MyPagination.name, MyPagination)
 
-// 1) 创建或指定事件总线对象, 保存到Vue的原型上
-// Vue.prototype.$bus = new Vue()
-
 new Vue({
     render: h => h(App),
     beforeCreate() {
