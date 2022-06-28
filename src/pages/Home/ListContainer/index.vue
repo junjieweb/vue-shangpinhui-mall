@@ -5,7 +5,7 @@
         <!--banner轮播-->
         <swiper :options="swiperOptions">
           <swiper-slide v-for="banner in bannerList" :key="banner.id">
-            <img :src="banner.imageUrl" :alt="banner.title"/>
+            <img :src="banner.imgUrl" />
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
           <div class="swiper-button-prev" slot="button-prev"></div>

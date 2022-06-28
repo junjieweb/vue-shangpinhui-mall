@@ -20,6 +20,7 @@ export const reqBannerList = () => ajax('/cms/banner')
 //mock接口函数
 export const reqRecommends = () => mockAjax('/recommends')
 export const reqFloors = () => mockAjax('floors')
+export const reqGetBannerList = () => mockAjax.get("/banner");
 
 //搜索分页列表    /api/list  POST
 export const reqSearch = (searchParams) => ajax.post('/list', searchParams)

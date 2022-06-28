@@ -1,5 +1,5 @@
 //首页相关数据的vuex子模块
-import {reqBannerList, reqCategoryList, reqFloors, reqRecommends} from "@/api";
+import {reqCategoryList, reqFloors, reqGetBannerList, reqRecommends} from "@/api";
 
 const state = {
     categoryList: [],
@@ -39,7 +39,8 @@ const actions = {
     //获取广告轮播列表的异步action
     async getBannerList({commit}) {
         //发异步Ajax请求（调用接口请求函数）
-        const result = await reqBannerList()
+        // const result = await reqBannerList()
+        const result = await reqGetBannerList()
         //如果请求成功了，得到数据提交给mutation
         if (result.code === 200) {
             const bannerList = result.data;
